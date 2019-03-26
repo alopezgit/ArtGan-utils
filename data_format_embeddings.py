@@ -8,6 +8,9 @@ out_base_f = './art_data'
 if not os.path.exists(out_base_f):
 	os.makedirs(out_base_f)
 max_folder_length = 40
+vocab = {}
+import IPython;IPython.embed()
+alphabet = "abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
 with open(os.path.join(data_folder, 'new_info.csv'), 'r') as file:
 	reader = csv.reader(file, delimiter='|')
 	header = next(reader)
@@ -25,10 +28,7 @@ with open(os.path.join(data_folder, 'new_info.csv'), 'r') as file:
 		file_name = new_folder + '.txt'
 		with open(os.path.join(out_text_folder, file_name), 'w') as txt_file:
 			txt_file.write(row[-1])
+
 		if random.random() < 0.8:
 			train_ids.write(str(k+1).zfill(5)+'\n')
-		
-# x = load_lua('/media/adrian/SSD/finegrained-text-embeddings-pytorch/cvpr2016_cub/images/001.Black_footed_Albatross.t7')
-# import h5py    
-# x = h5py.File('/media/adrian/SSD/finegrained-text-embeddings-pytorch/cvpr2016_cub/text_c10/001.Black_footed_Albatross/Black_Footed_Albatross_0001_796111.h5', 'r')
-# import IPython;IPython.embed()
+			

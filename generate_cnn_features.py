@@ -9,22 +9,6 @@ import pickle
 import numpy as np
 data_folder = '/media/adrian/SSD/clean_dataset_art'
 
-class ImageDataset(object):
-    def __init__(self, path_to_csv_file, input_name, target_name):
-        self.dataset = pd.read_csv(path_to_csv_file)
-        self.input_name = input_name
-        self.target_name = target_name
-        # add transforms as well
-
-    def __getitem__(self, idx):
-        item = self.dataset.iloc[idx]
-        # add transforms
-        return item[self.input_name], item[self.target_name]
-
-    def __len__(self):
-        return len(self.dataset)
-
-
 
 net = torchvision.models.resnet50(pretrained=True)
 net = nn.Sequential(*(list(net.children())[:-2]))     
