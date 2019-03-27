@@ -35,7 +35,7 @@ t = transforms.Compose([transforms.Resize(512), transforms.TenCrop(224),
 out_folder = './images/'
 if not os.path.exists(out_folder):
 	os.makedirs(out_folder)
-max_folder_length = 40
+max_file_length = 40
 manifest = open(os.path.join('./art_data', 'manifest.txt'), 'w')
 for k, f in files:
 	img = t(Image.open(os.path.join(data_folder, f)).convert('RGB')).cuda()
@@ -43,7 +43,7 @@ for k, f in files:
 		feat = net(img).mean(-1).mean(-1)
 	feat = feat.permute(1,0).unsqueeze(0)
 	file_name = str(k+1).zfill(5)+'.'+f.replace('/', '_')[:-4]
-	out_file_name = os.path.join(out_folder, file_name+'.npy')
+	out_file_name = os.path.join(out_folder, file_name[:max_file_length]+'.npy')
 	np.save(out_file_name, feat.cpu().numpy())
-	manifest.write(file_name+'.t7'+'\n')
+	manifest.write(file_name[:max_file_length]+'.t7'+'\n')
 	
